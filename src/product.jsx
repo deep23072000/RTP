@@ -10,7 +10,7 @@ const Product = () => {
   let [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:4000/product")
+    axios.get("https://rt-pdata.vercel.app/db.json")
     .then((e) => setData(e.data));
   }, []);
 
@@ -21,7 +21,7 @@ const Product = () => {
     <>
       <section style={{"display":"grid","gridTemplateColumns":"auto auto auto","justifyContent":"space-evenly"}}>
         {
-            data.map((items)=><Card  key={items.id} style={{ width: '18rem',"margin":"30px" }}>
+            data.product.map((items)=><Card  key={items.id} style={{ width: '18rem',"margin":"30px" }}>
             <Card.Img variant="top" src={items.imageurl} />
             <Card.Body>
               <Card.Title>{items.pname}</Card.Title>
