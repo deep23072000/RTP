@@ -4,16 +4,27 @@ const ecomSlice = createSlice(
     {
         name:'ecom',
         initialState:{
-            items:[]
+            items:[],
+            cartval:0
         },
         reducers:{
             addtocart:(state,action)=>{
-               state.items.push(action.payload)
+                let d = state.items.find((e)=>e.id === action.payload.id)
+                if(d){
+                    alert("cant add product becuase already in cart")
+                }else{
+               state.items.push(action.payload);
+               state.cartval = state.items.length
+                }
+            },
+            removeitem:(state,action)=>{
+                state.items.splice(action.payload,1)
+                state.cartval -=1
             }
         }
     }
 )
 
-export const {addtocart} = ecomSlice.actions;
+export const {addtocart,removeitem} = ecomSlice.actions;
 
 export default ecomSlice.reducer;

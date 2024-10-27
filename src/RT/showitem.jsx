@@ -1,28 +1,39 @@
-import { useSelector } from "react-redux"
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 
-const Showitem = ()=>{
-    const cartdata = useSelector((state)=>state.ecom.items)
-    return(
-        <>
-           <section style={{"display":"grid","gridTemplateColumns":"auto auto auto","justifyContent":"space-evenly"}}>
-        {
-            cartdata.map((items)=><Card  key={items.id} style={{ width: '18rem',"margin":"30px" }}>
-            <Card.Img variant="top" src={items.imageurl} />
-            <Card.Body>
-              <Card.Title>{items.pname}</Card.Title>
-              <Card.Title>{items.bname}</Card.Title>
-              <Card.Title>{items.pprice}</Card.Title>
-              <Button variant="primary" onClick={()=>{cart(items)}}> Add to cart </Button>
-            </Card.Body>
-          </Card>)
-               
-        }
-    </section>
-        </>
-    )
+function OffCanvasExample({ name, ...props }) {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <>
+      <Button variant="primary" onClick={handleShow} className="me-2">
+        {name}
+      </Button>
+      <Offcanvas show={show} onHide={handleClose} {...props}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+          Some text as placeholder. In real life you can have the elements you
+          have chosen. Like, text, images, lists, etc.
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
+  );
 }
 
-export default Showitem;
+function Example() {
+  return (
+    <>
+      {['end'].map((placement, idx) => (
+        <OffCanvasExample key={idx} placement={placement} name={placement} />
+      ))}
+    </>
+  );
+}
 
+export default Example
